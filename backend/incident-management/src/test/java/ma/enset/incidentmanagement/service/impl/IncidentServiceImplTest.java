@@ -2,6 +2,7 @@ package ma.enset.incidentmanagement.service.impl;
 
 import ma.enset.incidentmanagement.entity.Incident;
 import ma.enset.incidentmanagement.entity.User;
+import ma.enset.incidentmanagement.enums.IncidentStatus;
 import ma.enset.incidentmanagement.repository.IncidentRepository;
 
 import org.junit.jupiter.api.Test;
@@ -113,5 +114,31 @@ class IncidentServiceImplTest {
         assertEquals(1, result.size());
 
         verify(incidentRepository).findByAssignedTo(technician);
+    }
+
+    @Test
+    void shouldCreateIncidentWithCorrectInitialValues() {
+
+        // Arrange
+        User employee = new User();
+
+        Incident incident = new Incident();
+        incident.setTitle("Network problem");
+        incident.setDescription("Internet connection unavailable");
+
+        when(incidentRepository.save(incident))
+                .thenReturn(incident);
+
+        // Act
+        Incident result =
+                incidentService.createIncident(incident, employee);
+
+        // Assert
+        assertNotNull(result);
+        assertSame(employee, result.getCreatedBy());
+        assertEquals(IncidentStatus.OPEN, result.getStatus());
+        assertNull(result.getAssignedTo());
+
+        verify(incidentRepository).save(incident);
     }
 }

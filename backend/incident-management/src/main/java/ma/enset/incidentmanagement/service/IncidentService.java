@@ -22,4 +22,7 @@ public interface IncidentService {
 
     // Save a new incident or update an existing one
     Incident save(Incident incident);
+
+    // Create a new incident for an employee
+    Incident createIncident(Incident incident, User employee);
 }

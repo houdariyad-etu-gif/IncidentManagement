@@ -2,6 +2,7 @@ package ma.enset.incidentmanagement.service.impl;
 
 import ma.enset.incidentmanagement.entity.Incident;
 import ma.enset.incidentmanagement.entity.User;
+import ma.enset.incidentmanagement.enums.IncidentStatus;
 import ma.enset.incidentmanagement.repository.IncidentRepository;
 import ma.enset.incidentmanagement.service.IncidentService;
 
@@ -15,7 +16,6 @@ public class IncidentServiceImpl implements IncidentService {
 
     private final IncidentRepository incidentRepository;
 
-    // Constructor injection
     public IncidentServiceImpl(IncidentRepository incidentRepository) {
         this.incidentRepository = incidentRepository;
     }
@@ -42,6 +42,21 @@ public class IncidentServiceImpl implements IncidentService {
 
     @Override
     public Incident save(Incident incident) {
+        return incidentRepository.save(incident);
+    }
+
+    @Override
+    public Incident createIncident(Incident incident, User employee) {
+
+        // Associate the incident with its creator
+        incident.setCreatedBy(employee);
+
+        // Set the initial status
+        incident.setStatus(IncidentStatus.OPEN);
+
+        // No technician is assigned initially
+        incident.setAssignedTo(null);
+
         return incidentRepository.save(incident);
     }
 }
