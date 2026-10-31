@@ -8,6 +8,8 @@ import ma.enset.incidentmanagement.security.RestAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.http.HttpMethod;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -69,8 +71,23 @@ public class SecurityConfig {
                 )
 
                 .authorizeHttpRequests(auth -> auth
+
+                        // Public authentication endpoints
                         .requestMatchers("/auth/**").permitAll()
+
+                        // H2 console
                         .requestMatchers("/h2-console/**").permitAll()
+
+                        // Only employees can create incidents
+                        .requestMatchers(HttpMethod.POST, "/api/incidents")
+                        .hasRole("EMPLOYEE")
+
+                        // Authenticated users can consult incident endpoints.
+                        // Ownership and assignment are checked in the controller.
+                        .requestMatchers(HttpMethod.GET, "/api/incidents/**")
+                        .authenticated()
+
+                        // All other endpoints require authentication
                         .anyRequest().authenticated()
                 )
 
