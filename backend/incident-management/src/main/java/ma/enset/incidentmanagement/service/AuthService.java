@@ -1,4 +1,3 @@
-
 package ma.enset.incidentmanagement.service;
 
 import ma.enset.incidentmanagement.dto.response.AuthResponse;
