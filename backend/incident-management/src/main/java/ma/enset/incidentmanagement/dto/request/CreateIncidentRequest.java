@@ -1,4 +1,3 @@
-
 package ma.enset.incidentmanagement.dto.request;
 
 import jakarta.validation.constraints.NotBlank;

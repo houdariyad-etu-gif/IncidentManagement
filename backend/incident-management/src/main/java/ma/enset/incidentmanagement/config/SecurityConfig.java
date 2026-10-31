@@ -84,9 +84,17 @@ public class SecurityConfig {
 
                         // Authenticated users can consult incident endpoints.
                         // Ownership and assignment are checked in the controller.
+
+                        .requestMatchers(HttpMethod.GET, "/api/incidents/assigned")
+                        .hasRole("TECHNICIAN")
                         .requestMatchers(HttpMethod.GET, "/api/incidents/**")
                         .authenticated()
-
+                        .requestMatchers(HttpMethod.PUT, "/api/incidents/*/status")
+                        .hasAnyRole("TECHNICIAN", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/incidents/*/assign/*")
+                        .hasRole("ADMIN")
+                        .requestMatchers("/api/profile/**").authenticated()
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         // All other endpoints require authentication
                         .anyRequest().authenticated()
                 )

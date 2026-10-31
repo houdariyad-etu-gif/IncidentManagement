@@ -1,15 +1,18 @@
-
 package ma.enset.incidentmanagement.controller;
 
 import jakarta.validation.Valid;
 
+import ma.enset.incidentmanagement.dto.request.UpdateIncidentStatusRequest;
+import ma.enset.incidentmanagement.enums.IncidentStatus;
+import ma.enset.incidentmanagement.enums.Role;
+import ma.enset.incidentmanagement.exception.ResourceNotFoundException;
 import ma.enset.incidentmanagement.dto.request.CreateIncidentRequest;
 import ma.enset.incidentmanagement.dto.response.IncidentResponse;
 import ma.enset.incidentmanagement.entity.Incident;
 import ma.enset.incidentmanagement.entity.User;
 import ma.enset.incidentmanagement.service.IncidentService;
 import ma.enset.incidentmanagement.service.UserService;
-import ma.enset.incidentmanagement.exception.ResourceNotFoundException;
+
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -127,5 +130,90 @@ public class IncidentController {
                         ? incident.getAssignedTo().getFullName()
                         : null
         );
+
+    }
+    @GetMapping("/assigned")
+    public ResponseEntity<List<IncidentResponse>> getAssignedIncidents(
+            Authentication authentication) {
+
+        User technician = getAuthenticatedUser(authentication);
+
+        if (technician.getRole() != ma.enset.incidentmanagement.enums.Role.TECHNICIAN) {
+            throw new AccessDeniedException(
+                    "Only technicians can view assigned incidents");
+        }
+
+        List<IncidentResponse> incidents = incidentService
+                .findByAssignedTo(technician)
+                .stream()
+                .map(this::toResponse)
+                .toList();
+
+        return ResponseEntity.ok(incidents);
+    }
+
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<IncidentResponse> updateIncidentStatus(
+            @PathVariable Long id,
+            @Valid @RequestBody UpdateIncidentStatusRequest request,
+            Authentication authentication) {
+
+        User currentUser = getAuthenticatedUser(authentication);
+
+        Incident incident = incidentService.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Incident not found with id: " + id));
+
+        if (incident.getStatus() == IncidentStatus.CLOSED) {
+            throw new IllegalArgumentException(
+                    "A closed incident cannot be modified");
+        }
+
+        if (currentUser.getRole() == Role.TECHNICIAN) {
+
+            boolean isAssigned = incident.getAssignedTo() != null
+                    && incident.getAssignedTo().getId()
+                    .equals(currentUser.getId());
+
+            if (!isAssigned) {
+                throw new AccessDeniedException(
+                        "You can only modify incidents assigned to you");
+            }
+
+        } else if (currentUser.getRole() != Role.ADMIN) {
+
+            throw new AccessDeniedException(
+                    "You are not allowed to modify this incident");
+        }
+
+        incident.setStatus(request.status());
+
+        Incident updated = incidentService.save(incident);
+
+        return ResponseEntity.ok(toResponse(updated));
+    }
+
+    @PutMapping("/{id}/assign/{technicianId}")
+    public ResponseEntity<IncidentResponse> assignIncident(
+            @PathVariable Long id,
+            @PathVariable Long technicianId,
+            Authentication authentication) {
+
+        User admin = getAuthenticatedUser(authentication);
+
+        if (admin.getRole() != Role.ADMIN) {
+            throw new AccessDeniedException(
+                    "Only administrators can assign incidents");
+        }
+
+        User technician = userService.findById(technicianId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Technician not found with id: " + technicianId));
+
+        Incident assigned = incidentService.assignIncident(id, technician);
+
+        return ResponseEntity.ok(toResponse(assigned));
     }
 }

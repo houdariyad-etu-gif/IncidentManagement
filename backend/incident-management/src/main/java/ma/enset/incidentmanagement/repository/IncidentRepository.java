@@ -15,4 +15,6 @@ public interface IncidentRepository extends JpaRepository<Incident, Long> {
     List<Incident> findByAssignedTo(User technician);
 
     List<Incident> findByStatus(IncidentStatus status);
+
+    long countByStatus(ma.enset.incidentmanagement.enums.IncidentStatus status);
 }

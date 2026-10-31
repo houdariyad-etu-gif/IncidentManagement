@@ -3,9 +3,9 @@ package ma.enset.incidentmanagement.service.impl;
 import ma.enset.incidentmanagement.entity.User;
 import ma.enset.incidentmanagement.repository.UserRepository;
 import ma.enset.incidentmanagement.service.UserService;
-
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,5 +30,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User save(User user) {
+        return userRepository.save(user);
     }
 }

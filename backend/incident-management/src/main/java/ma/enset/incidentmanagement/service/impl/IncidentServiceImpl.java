@@ -5,6 +5,8 @@ import ma.enset.incidentmanagement.entity.User;
 import ma.enset.incidentmanagement.enums.IncidentStatus;
 import ma.enset.incidentmanagement.repository.IncidentRepository;
 import ma.enset.incidentmanagement.service.IncidentService;
+import ma.enset.incidentmanagement.exception.ResourceNotFoundException;
+import ma.enset.incidentmanagement.enums.Role;
 
 import org.springframework.stereotype.Service;
 
@@ -56,6 +58,28 @@ public class IncidentServiceImpl implements IncidentService {
 
         // No technician is assigned initially
         incident.setAssignedTo(null);
+
+        return incidentRepository.save(incident);
+    }
+
+    @Override
+    public Incident assignIncident(Long incidentId, User technician) {
+        Incident incident = incidentRepository.findById(incidentId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Incident not found with id: " + incidentId));
+
+        if (technician.getRole() != Role.TECHNICIAN) {
+            throw new IllegalArgumentException(
+                    "Only a technician can be assigned to an incident");
+        }
+
+        if (incident.getStatus() == IncidentStatus.CLOSED) {
+            throw new IllegalArgumentException(
+                    "A closed incident cannot be assigned");
+        }
+
+        incident.setAssignedTo(technician);
+        incident.setStatus(IncidentStatus.ASSIGNED);
 
         return incidentRepository.save(incident);
     }

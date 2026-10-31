@@ -25,4 +25,7 @@ public interface IncidentService {
 
     // Create a new incident for an employee
     Incident createIncident(Incident incident, User employee);
+
+    // Assign an incident to a technician
+    Incident assignIncident(Long incidentId, User technician);
 }
