@@ -56,6 +56,27 @@ public class IncidentController {
                 .body(toResponse(saved));
     }
 
+    @GetMapping
+    public ResponseEntity<List<IncidentResponse>> getAllIncidents(
+            Authentication authentication) {
+
+        User admin = getAuthenticatedUser(authentication);
+
+        if (admin.getRole() != Role.ADMIN) {
+            throw new AccessDeniedException(
+                    "Only administrators can view all incidents"
+            );
+        }
+
+        List<IncidentResponse> incidents = incidentService
+                .findAll()
+                .stream()
+                .map(this::toResponse)
+                .toList();
+
+        return ResponseEntity.ok(incidents);
+    }
+
     @GetMapping("/my")
     public ResponseEntity<List<IncidentResponse>> getMyIncidents(
             Authentication authentication) {
