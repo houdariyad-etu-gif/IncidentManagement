@@ -1,4 +1,4 @@
-
+import AdminDashboard from "../pages/admin/AdminDashboard";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Login from "../pages/Login";
@@ -64,8 +64,8 @@ function AppRoutes() {
                 <Route
                     path="/admin"
                     element={
-                        <ProtectedRoute allowedRole="ADMIN">
-                            <DashboardPlaceholder />
+                        <ProtectedRoute allowedRoles={["ADMIN"]}>
+                            <AdminDashboard />
                         </ProtectedRoute>
                     }
                 />
