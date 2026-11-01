@@ -8,6 +8,51 @@ The Incident Management System centralizes incident reporting, assignment, track
 
 It follows a role-based architecture to ensure that each user can access only the functionalities authorized for their role.
 
+## Application Preview
+
+IncidentManagement provides dedicated dashboards for each user role, with role-based access and incident management workflows.
+
+### Login
+
+![Login Page](docs/screenshots/login.png)
+
+### Employee Dashboard
+
+Employees can report new incidents and track the progress of incidents they have already submitted.
+
+**Reporting an Incident**
+
+![Employee - Report Incident](docs/screenshots/dashboard%20employee_report_incident.jpg)
+
+**My Incidents**
+
+![Employee - My Incidents](docs/screenshots/dashboard%20employee_my_incident.jpg)
+
+
+### Technician Dashboard
+
+Technicians can view assigned incidents and update their progress.
+
+![Technician Dashboard](docs/screenshots/dashboard_technician.jpg)
+
+### Administrator Dashboard
+
+Administrators can monitor platform activity and access global statistics.
+
+![Administrator Dashboard](docs/screenshots/dashboard_Admin.jpg)
+
+### Incident Management
+
+Administrators can consult incidents and assign them to technicians.
+
+![Admin Incident Management](docs/screenshots/all_incidents_dashboard_Admin.jpg)
+
+### User Management
+
+Administrators can manage user accounts and enable or disable access.
+
+![Admin User Management](docs/screenshots/dashboard_users_admin.jpg)
+
 ## Features
 
 ### Authentication and Security
