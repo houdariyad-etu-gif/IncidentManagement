@@ -1,0 +1,43 @@
+.admin-incidents-page{min-height:100vh;background:#f4f6fa;color:#1c2940;font-family:Inter,Arial,sans-serif}
+.admin-incidents-header{min-height:82px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;gap:20px;background:#fff;border-bottom:1px solid #e6eaf1}
+.admin-incidents-brand,.admin-incidents-user{display:flex;align-items:center;gap:14px}
+.admin-incidents-logo{width:46px;height:46px;display:grid;place-items:center;border-radius:13px;background:#263f6b;color:#fff}
+.admin-incidents-brand h1{margin:0;color:#1e2d49;font-size:19px;font-weight:750}.admin-incidents-brand p{margin:5px 0 0;color:#8994a8;font-size:12px}
+.admin-incidents-user>div{display:flex;flex-direction:column;gap:4px;text-align:right}.admin-incidents-user strong{color:#263247;font-size:13px}.admin-incidents-user span{color:#8792a5;font-size:11px}
+.admin-incidents-user button,.admin-incidents-refresh{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;border-radius:9px;font-size:13px;font-weight:650;cursor:pointer;transition:all .2s ease}
+.admin-incidents-user button{border:1px solid #e2e7ef;background:#fff;color:#465875}.admin-incidents-user button:hover{color:#b4233d;background:#fff3f4;border-color:#f4c4cc}
+.admin-incidents-content{width:min(1500px,92%);margin:auto;padding:42px 0 65px}
+.admin-incidents-welcome{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:28px}
+.admin-incidents-eyebrow{color:#8190a8;font-size:11px;font-weight:750;letter-spacing:1.4px}
+.admin-incidents-welcome h2{margin:9px 0;color:#1e2d49;font-size:30px;font-weight:750;letter-spacing:-.8px}.admin-incidents-welcome p{margin:0;color:#78869c;font-size:14px}
+.admin-incidents-refresh{border:0;background:#263f6b;color:#fff}.admin-incidents-refresh:hover{background:#1c3156;transform:translateY(-2px)}.admin-incidents-refresh:disabled{opacity:.6;cursor:wait}
+.admin-incidents-spinning{animation:admin-incidents-spin 1s linear infinite}@keyframes admin-incidents-spin{to{transform:rotate(360deg)}}
+.admin-incidents-alert{padding:14px 17px;margin-bottom:18px;border-radius:10px;font-size:13px}.admin-incidents-error{color:#a51d36;background:#fff0f2;border:1px solid #fecdd3}.admin-incidents-success{color:#16734b;background:#ecfdf3;border:1px solid #bbf7d0}
+.admin-incidents-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px;margin-bottom:27px}
+.admin-incidents-stats article{min-height:100px;padding:19px;display:flex;align-items:center;gap:14px;background:#fff;border:1px solid #e7ebf2;border-radius:15px;box-shadow:0 4px 15px rgba(30,45,73,.035);transition:transform .22s ease,box-shadow .22s ease}
+.admin-incidents-stats article:hover{transform:translateY(-4px);box-shadow:0 12px 25px rgba(30,45,73,.08)}
+.admin-incidents-stat-icon{width:44px;height:44px;display:grid;place-items:center;border-radius:13px;background:#edf2fa;color:#344f7d}.admin-incidents-assigned-icon{background:#eaf8f1;color:#16845b}
+.admin-incidents-stats article>div{display:flex;flex-direction:column;gap:5px}.admin-incidents-stats small{color:#748198;font-size:12px;font-weight:650}.admin-incidents-stats strong{color:#202e46;font-size:27px}
+.admin-incidents-critical-stat{background:linear-gradient(135deg,#fffafa,#fff0f2)!important;border-color:#f5c3cb!important}.admin-incidents-critical-icon{background:#ffe1e7;color:#bd2446}.admin-incidents-critical-stat strong{color:#bd2446!important}
+.admin-incidents-panel{padding:27px;background:#fff;border:1px solid #e7ebf2;border-radius:17px;box-shadow:0 5px 20px rgba(30,45,73,.025)}
+.admin-incidents-panel-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:22px}
+.admin-incidents-panel-heading h2{margin:0;color:#1e2d49;font-size:20px;font-weight:750}.admin-incidents-panel-heading p{margin:7px 0 0;color:#8490a4;font-size:13px}
+.admin-incidents-panel-heading>span{padding:8px 13px;color:#40577d;background:#edf2fa;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
+.admin-incidents-table-wrap{overflow-x:auto;border:1px solid #edf0f5;border-radius:12px}
+.admin-incidents-table{width:100%;min-width:1150px;border-collapse:collapse;text-align:left}
+.admin-incidents-table th,.admin-incidents-table td{padding:15px 13px;border-bottom:1px solid #edf0f5;font-size:11px;white-space:nowrap}
+.admin-incidents-table th{background:#f8fafd;color:#78869c;font-size:10px;font-weight:750;letter-spacing:.5px;text-transform:uppercase}
+.admin-incidents-table td{color:#52627a}
+.admin-incident-title{max-width:230px}.admin-incident-title strong{display:block;overflow:hidden;text-overflow:ellipsis;color:#34445d;font-size:12px}.admin-incident-title small{display:block;overflow:hidden;text-overflow:ellipsis;margin-top:5px;color:#98a2b2;font-size:10px}
+.admin-incidents-badge{display:inline-flex;padding:6px 9px;border-radius:20px;font-size:10px;font-weight:750}
+.admin-priority-low{color:#28734d;background:#eaf8f0}.admin-priority-medium{color:#946319;background:#fff5e3}.admin-priority-high{color:#bd5b24;background:#fff0e8}.admin-priority-critical{color:#be123c;background:#ffe4e8}
+.admin-status-open{color:#536b91;background:#edf3fc}.admin-status-assigned{color:#8b671c;background:#fff6df}.admin-status-in-progress{color:#3266ae;background:#edf4ff}.admin-status-resolved{color:#18794e;background:#eaf8f1}.admin-status-closed{color:#596579;background:#eef0f3}
+.admin-not-assigned{color:#a1aaba;font-style:italic}.admin-closed-label{color:#8793a6;font-size:11px}
+.admin-assign-controls{display:flex;align-items:center;gap:7px}
+.admin-assign-controls select{max-width:155px;padding:9px 10px;border:1px solid #dce3ed;border-radius:8px;outline:none;background:#fff;color:#34445d;font-size:11px}
+.admin-assign-controls select:focus{border-color:#829bc2;box-shadow:0 0 0 3px rgba(68,105,160,.1)}
+.admin-assign-controls button{width:34px;height:34px;display:grid;place-items:center;border:0;border-radius:8px;background:#263f6b;color:#fff;cursor:pointer;transition:background .2s ease}
+.admin-assign-controls button:hover{background:#1c3156}.admin-assign-controls button:disabled{opacity:.45;cursor:not-allowed}
+.admin-incidents-state{min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:#8793a6;text-align:center}.admin-incidents-state h3{margin:0;color:#46546b;font-size:17px}.admin-incidents-state p{margin:0;font-size:13px}
+@media(max-width:850px){.admin-incidents-stats{grid-template-columns:1fr}.admin-incidents-content{width:92%}}
+@media(max-width:600px){.admin-incidents-header{padding:15px 4%;flex-wrap:wrap}.admin-incidents-user{width:100%;justify-content:flex-end}.admin-incidents-content{padding-top:30px}.admin-incidents-welcome{align-items:flex-start;flex-direction:column}.admin-incidents-panel{padding:18px}}

@@ -1,79 +1,109 @@
-import AdminDashboard from "../pages/admin/AdminDashboard";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+
 import Login from "../pages/Login";
 
-function ProtectedRoute({ allowedRole, children }) {
-    const { user } = useAuth();
+import EmployeeDashboard from "../pages/employee/EmployeeDashboard";
+import TechnicianDashboard from "../pages/technician/TechnicianDashboard";
 
-    if (!user) {
-        return <Navigate to="/login" replace />;
-    }
+import AdminDashboard from "../pages/admin/AdminDashboard";
+import AdminIncidents from "../pages/admin/AdminIncidents";
+import AdminUsers from "../pages/admin/AdminUsers";
 
-    if (allowedRole && user.role !== allowedRole) {
-        return <Navigate to={`/${user.role.toLowerCase()}`} replace />;
-    }
+function ProtectedRoute({ allowedRoles, children }) {
+  const { user } = useAuth();
 
-    return children;
-}
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
 
-function DashboardPlaceholder() {
-    const { user, logout } = useAuth();
+  if (allowedRoles && !allowedRoles.includes(user.role)) {
+    return <Navigate to={`/${user.role.toLowerCase()}`} replace />;
+  }
 
-    return (
-        <div style={{ padding: "40px" }}>
-            <h1>Welcome, {user?.fullName}</h1>
-            <p>Your role: {user?.role}</p>
-            <p>Your dashboard will be implemented next.</p>
-            <button onClick={logout}>Logout</button>
-        </div>
-    );
+  return children;
 }
 
 function AppRoutes() {
-    const { user } = useAuth();
+  const { user } = useAuth();
 
-    const home = user
-        ? `/${user.role.toLowerCase()}`
-        : "/login";
+  const home = user
+    ? `/${user.role.toLowerCase()}`
+    : "/login";
 
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Navigate to={home} replace />} />
-                <Route path="/login" element={user ? <Navigate to={home} replace /> : <Login />} />
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* Home */}
+        <Route
+          path="/"
+          element={<Navigate to={home} replace />}
+        />
 
-                <Route
-                    path="/employee"
-                    element={
-                        <ProtectedRoute allowedRole="EMPLOYEE">
-                            <DashboardPlaceholder />
-                        </ProtectedRoute>
-                    }
-                />
+        {/* Login */}
+        <Route
+          path="/login"
+          element={user ? <Navigate to={home} replace /> : <Login />}
+        />
 
-                <Route
-                    path="/technician"
-                    element={
-                        <ProtectedRoute allowedRole="TECHNICIAN">
-                            <DashboardPlaceholder />
-                        </ProtectedRoute>
-                    }
-                />
+        {/* EMPLOYEE */}
+        <Route
+          path="/employee"
+          element={
+            <ProtectedRoute allowedRoles={["EMPLOYEE"]}>
+              <EmployeeDashboard />
+            </ProtectedRoute>
+          }
+        />
 
-                <Route
-                    path="/admin"
-                    element={
-                        <ProtectedRoute allowedRoles={["ADMIN"]}>
-                            <AdminDashboard />
-                        </ProtectedRoute>
-                    }
-                />
+        {/* TECHNICIAN */}
+        <Route
+          path="/technician"
+          element={
+            <ProtectedRoute allowedRoles={["TECHNICIAN"]}>
+              <TechnicianDashboard />
+            </ProtectedRoute>
+          }
+        />
 
-                <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-        </BrowserRouter>
-    );
+        {/* ADMIN DASHBOARD */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* ADMIN INCIDENTS */}
+        <Route
+          path="/admin/incidents"
+          element={
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
+              <AdminIncidents />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* ADMIN USERS */}
+        <Route
+          path="/admin/users"
+          element={
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
+              <AdminUsers />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Unknown routes */}
+        <Route
+          path="*"
+          element={<Navigate to="/" replace />}
+        />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default AppRoutes;

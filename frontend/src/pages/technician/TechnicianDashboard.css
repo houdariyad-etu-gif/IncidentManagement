@@ -1,0 +1,631 @@
+/* =================================
+   TECHNICIAN DASHBOARD
+================================= */
+
+.technician-page {
+  min-height: 100vh;
+  background: #f4f6fa;
+  color: #1c2940;
+  font-family: Inter, Arial, sans-serif;
+}
+
+/* HEADER */
+
+.technician-header {
+  min-height: 82px;
+  padding: 0 5%;
+  background: #fff;
+  border-bottom: 1px solid #e6eaf1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.technician-brand,
+.technician-user {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.technician-logo {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  color: white;
+  background: #263f6b;
+}
+
+.technician-brand h1 {
+  font-size: 19px;
+  font-weight: 750;
+  color: #1e2d49;
+}
+
+.technician-brand p {
+  margin-top: 5px;
+  color: #8994a8;
+  font-size: 12px;
+}
+
+.technician-user-avatar {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #344d78;
+  background: #edf2fa;
+}
+
+.technician-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.technician-user-info strong {
+  font-size: 13px;
+  color: #263247;
+}
+
+.technician-user-info span {
+  font-size: 11px;
+  color: #8792a5;
+}
+
+.technician-page .logout-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-left: 12px;
+  padding: 11px 16px;
+  border: 1px solid #e2e7ef;
+  border-radius: 9px;
+  background: #fff;
+  color: #465875;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.technician-page .logout-button:hover {
+  color: #b4233d;
+  background: #fff3f4;
+  border-color: #f4c4cc;
+}
+
+/* MAIN */
+
+.technician-content {
+  width: min(1440px, 90%);
+  margin: auto;
+  padding: 44px 0 65px;
+}
+
+.technician-welcome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.welcome-label {
+  color: #8190a8;
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 1.4px;
+}
+
+.technician-welcome h2 {
+  margin: 9px 0;
+  color: #1e2d49;
+  font-size: 30px;
+  font-weight: 750;
+  letter-spacing: -.8px;
+}
+
+.technician-welcome p {
+  color: #78869c;
+  font-size: 14px;
+}
+
+.technician-page .refresh-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 17px;
+  border: 0;
+  border-radius: 9px;
+  background: #263f6b;
+  color: white;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.technician-page .refresh-button:hover {
+  background: #1c3156;
+  transform: translateY(-2px);
+}
+
+.technician-page .refresh-button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.spinning {
+  animation: technician-spin 1s linear infinite;
+}
+
+@keyframes technician-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ALERTS - SCOPED TO AVOID LOGIN CSS CONFLICT */
+
+.technician-alert {
+  padding: 14px 17px;
+  margin-bottom: 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 550;
+}
+
+.technician-alert-error {
+  color: #a51d36;
+  background: #fff0f2;
+  border: 1px solid #fecdd3;
+}
+
+.technician-alert-success {
+  color: #16734b;
+  background: #ecfdf3;
+  border: 1px solid #bbf7d0;
+}
+
+/* STATISTICS */
+
+.technician-stats {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 17px;
+  margin-bottom: 42px;
+}
+
+.stat-card {
+  min-width: 0;
+  min-height: 140px;
+  padding: 22px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+  border: 1px solid #e7ebf2;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(30, 45, 73, .035);
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 25px rgba(30, 45, 73, .08);
+}
+
+.stat-icon {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  color: #344f7d;
+  background: #edf2fa;
+  border-radius: 13px;
+}
+
+.pending-icon {
+  color: #a66a17;
+  background: #fff5e3;
+}
+
+.progress-icon {
+  color: #3268b5;
+  background: #edf4ff;
+}
+
+.resolved-icon {
+  color: #16845b;
+  background: #eaf8f1;
+}
+
+.stat-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-info span {
+  color: #748198;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.stat-info strong {
+  color: #202e46;
+  font-size: 30px;
+  line-height: 1.1;
+  font-weight: 750;
+}
+
+.stat-info small {
+  color: #98a2b2;
+  font-size: 10px;
+}
+
+/* CRITICAL STATISTIC */
+
+.critical-stat {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #fffafa, #fff0f2);
+  border: 1px solid #f5c3cb;
+  box-shadow: 0 5px 18px rgba(190, 24, 93, .055);
+}
+
+.critical-stat::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  background: #d94862;
+}
+
+.critical-icon {
+  color: #bd2446;
+  background: #ffe1e7;
+}
+
+.critical-stat .stat-info span {
+  color: #a52a47;
+}
+
+.critical-stat .stat-info strong {
+  color: #bd2446;
+}
+
+.critical-stat .stat-info small {
+  color: #b65d70;
+}
+
+/* INCIDENT SECTION */
+
+.technician-incidents-section {
+  padding: 30px;
+  background: white;
+  border: 1px solid #e7ebf2;
+  border-radius: 17px;
+  box-shadow: 0 5px 20px rgba(30, 45, 73, .025);
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.section-heading h2 {
+  color: #1e2d49;
+  font-size: 20px;
+  font-weight: 750;
+}
+
+.section-heading p {
+  margin-top: 7px;
+  color: #8490a4;
+  font-size: 13px;
+}
+
+.incident-count {
+  padding: 8px 13px;
+  color: #40577d;
+  background: #edf2fa;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* INCIDENT CARDS */
+
+.technician-incidents-list {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.technician-card {
+  padding: 24px;
+  background: #f1f2f6;
+  border: 1px solid #e5eaf2;
+  border-radius: 14px;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.technician-card:hover {
+  border-color: #cbd7e8;
+  box-shadow: 0 8px 22px rgba(30, 45, 73, .055);
+}
+
+.incident-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.incident-reference {
+  color: #8793a7;
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: .8px;
+}
+
+.incident-card-top h3 {
+  margin-top: 8px;
+  color: #263650;
+  font-size: 18px;
+  font-weight: 750;
+}
+
+.incident-description {
+  margin: 14px 0 22px;
+  color: #69788f;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+/* BADGES */
+
+.priority-badge,
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 7px 11px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.priority-low {
+  color: #28734d;
+  background: #eaf8f0;
+}
+
+.priority-medium {
+  color: #946319;
+  background: #fff5e3;
+}
+
+.priority-high {
+  color: #bd5b24;
+  background: #fff0e8;
+}
+
+.priority-critical {
+  color: #be123c;
+  background: #ffe4e8;
+}
+
+.status-open {
+  color: #536b91;
+  background: #edf3fc;
+}
+
+.status-assigned {
+  color: #8b671c;
+  background: #fff6df;
+}
+
+.status-in-progress {
+  color: #3266ae;
+  background: #edf4ff;
+}
+
+.status-resolved {
+  color: #18794e;
+  background: #eaf8f1;
+}
+
+.status-closed {
+  color: #596579;
+  background: #eef0f3;
+}
+
+/* DETAILS */
+
+.incident-details {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  padding: 19px 0;
+  border-top: 1px solid #edf0f5;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.incident-details > div,
+.current-status {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.detail-label {
+  color: #8c98aa;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.incident-details strong {
+  color: #40516c;
+  font-size: 12px;
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+
+/* STATUS CONTROLS */
+
+.incident-card-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 19px;
+}
+
+.status-control {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.status-control label {
+  color: #78869c;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.status-control select {
+  min-width: 175px;
+  padding: 11px 13px;
+  border: 1px solid #dce3ed;
+  border-radius: 9px;
+  outline: none;
+  background: #fff;
+  color: #34445d;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.status-control select:focus {
+  border-color: #829bc2;
+  box-shadow: 0 0 0 3px rgba(68, 105, 160, .1);
+}
+
+.status-control select:disabled {
+  color: #929baa;
+  background: #f4f5f7;
+  cursor: not-allowed;
+}
+
+/* EMPTY AND LOADING STATES */
+
+.dashboard-state {
+  min-height: 230px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  color: #8793a6;
+  text-align: center;
+}
+
+.dashboard-state p {
+  font-size: 13px;
+}
+
+.empty-state h3 {
+  color: #46546b;
+  font-size: 17px;
+}
+
+.empty-state svg {
+  color: #a5b1c3;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1150px) {
+  .technician-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .technician-header {
+    padding: 15px 4%;
+    flex-wrap: wrap;
+  }
+
+  .technician-content {
+    width: 92%;
+    padding-top: 30px;
+  }
+
+  .technician-welcome {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .technician-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .technician-incidents-section {
+    padding: 20px;
+  }
+
+  .incident-details {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .technician-user {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .technician-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .incident-card-footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .status-control select {
+    width: 100%;
+  }
+
+  .incident-details {
+    grid-template-columns: 1fr;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
